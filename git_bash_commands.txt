@@ -18,3 +18,92 @@
 18) вывести несколько последних строк из текстового файла - tail -n file.txt (n- колличество строк) 
 19) просмотреть содержимое длинного файла (команда less) изучите как она работает - less file.txt
 20) вывести дату и время - date
+21) склонировать репозиторий - git clone и ссылка на созданный репозиторий
+22) создать ветку - git checkout -b и название ветки. Создали ветку и сразу в нее перепрыгнули.Создали в ветке файл или перекинули,
+потом добавили, закомители, смержили и запушили
+23)Перепрыгнуть на другую ветку - git checkout название ветки
+24) Посмотреть существующие ветки - git branch
+25) Смержить 2 ветки - git merge название не основной ветки
+26) Запушить вторую ветку на гит - git push -u origin и название ветки, которую мы ходить запушить
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+let jsonData = JSON.parse(responseBody);
+postman.setEnvironmentVariable("token", jsonData.token);
+
+
+
+//1)Статус код 200 
+pm.test("Status code is 200", function () {
+    pm.response.to.have.status(200);
+});
+
+//2) Проверка структуры Json в ответе 
+pm.test("your test age", function () {
+    let jsonData = pm.response.json();
+    pm.expect(jsonData.person.u_age).to.eql(32);
+});
+
+//3) Проверке правильности результата перемножения на коэффициент
+pm.test("your test salary", () => {
+    const responseJson = pm.response.json();
+    pm.expect(responseJson.qa_salary_after_6_months).to.eql(responseJson.
+       start_qa_salary*2);
+    pm.expect(responseJson.qa_salary_after_12_months).to.eql(responseJson.
+       start_qa_salary*2.9);
+    pm.expect(responseJson.person.u_salary_1_5_year).to.eql(responseJson.
+       start_qa_salary*4);
+});
+
+// pm.variables.get("u_salary_1.5_year")
+
+
+pm.test("Status code is 200", function () {
+    pm.response.to.have.status(200);
+});
+
+
+pm.test("your test age", function () {
+    let jsonData = pm.response.json();
+    pm.expect(jsonData.age).to.eql(32);
+});
+
+ 
+
+let responseJson = JSON.parse(responseBody);
+// postman.setEnvironmentVariable("salary", responseJson.salary);
+postman.setEnvironmentVariable ("u_salary_1.5_year", responseJson.salary[0]*4);
+
+
+
+pm.test("Correct multiplication", function () {
+    let jsonData = pm.response.json();
+    console.log (jsonData.salary[0],jsonData.salary[1],jsonData.salary[2] )
+    let salary = jsonData.salary[0];
+    let salary2 = parseInt((jsonData.salary[1])*2);
+    let salary3 = parseInt((jsonData.salary[2])*3);
+});    
+
+
+pm.test("eql salary", function () {
+    let jsonData = pm.response.json();
+    pm.expect(parseInt(jsonData.salary[2])>(jsonData.salary[1])).to.be.true;
+    pm.expect(parseInt(jsonData.salary[2])>(jsonData.salary[0])).to.be.true;
+});
